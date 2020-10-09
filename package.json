@@ -18,14 +18,6 @@
   },
   "homepage": "https://github.com/MizushimaShiba/Basic-login#readme",
   "dependencies": {
-    "@babel/cli": "^7.11.6",
-    "@babel/core": "^7.11.6",
-    "@babel/node": "^7.10.5",
-    "@babel/plugin-transform-runtime": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "@babel/preset-stage-2": "^7.8.3",
-    "@babel/register": "^7.11.5",
-    "@babel/runtime": "^7.11.2",
     "bcrypt": "^5.0.0",
     "cls-hooked": "^4.2.2",
     "cors": "^2.8.5",
@@ -36,6 +28,17 @@
     "jsonwebtoken": "^8.5.1",
     "passport": "^0.4.1",
     "pg": "^8.4.0",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "github:sequelize/cli"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.11.6",
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/preset-stage-2": "^7.8.3",
+    "@babel/register": "^7.11.5",
+    "@babel/runtime": "^7.11.2"
   }
 }
