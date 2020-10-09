@@ -10,6 +10,7 @@ module.exports = class AuthController {
                 email: Joi.string().required(),
                 password: Joi.string().required(),
                 name: Joi.string().required(),
+                gender: Joi.string().required().valid('male', 'female'),
                 birthYear: Joi.number().required(),
             })
 

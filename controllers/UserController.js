@@ -32,7 +32,7 @@ module.exports = class UserController {
       const { firstName, lastName, email, birthYear } = req.body
 
       const user = await User.findByPk(req.user.id, {
-        attributes: ['id', 'email', 'firstName', 'lastName', 'birthYear']
+        attributes: ['id', 'email', 'firstName', 'lastName', 'birthYear', 'gender']
       })
 
       if (!user) return res.status(404).json({
