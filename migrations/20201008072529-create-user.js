@@ -20,6 +20,9 @@ module.exports = {
       lastName: {
         type: Sequelize.STRING
       },
+      gender: {
+        type: Sequelize.ENUM('male', 'female')
+      },
       birthYear: {
         type: Sequelize.INTEGER
       },
