@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt')
+const JWT = require('jsonwebtoken')
 const Joi = require('joi')
 const { User } = require('../models')
 
@@ -57,10 +58,52 @@ module.exports = class UserController {
   }
   static async destroy(req, res, next) {
     try {
+      const user = await User.findByPk(req.user.id)
+
+      if (!user) return res.status(404).json({
+        message: "User unknown!",
+        status: false
+      })
+
+      try {
+        await user.destroy()
+      } catch (error) {
+        throw new Error('Destroy error')
+      }
       
+      return res.status(200).json({
+        message: "User deleted!"
+      })
     } catch (error) {
       next(error)
     }
   }
-  static async password(req, res, next) {}
+  static async password(req, res, next) {
+    try {
+      const schema = Joi.object().keys({
+        password = Joi.string().required()
+      })
+      
+      const validate = schema.validate(req.body)
+      if (validate.error) return res.status(422).json({message: validate.error.message, status: false})
+
+      const user = await User.findByPk(req.user.id)
+
+      const compared = await bcrypt.compareSync(req.body.password, user.password)
+      if (!compared) return res.status(404).json({message: 'Password error! Please try again'})
+
+      try {
+        await user.update(req.body)
+      } catch (error) {
+        throw new Error('PATCH ERROR')
+      }
+
+      return res.status(200).json({
+        message: "Password updated!",
+        data: user
+      })
+    } catch (error) {
+      next(error)
+    }
+  }
 }

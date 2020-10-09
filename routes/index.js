@@ -44,6 +44,8 @@ router.use(function(req, res, next) {
 
 router.get('/profile', UserController.view)
 router.put('/profile', UserController.update)
+router.delete('/profile', UserController.destroy)
+router.patch('/profile/password', UserController.password)
 
 
 module.exports = router
