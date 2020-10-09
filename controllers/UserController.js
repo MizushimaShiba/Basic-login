@@ -81,7 +81,7 @@ module.exports = class UserController {
   static async password(req, res, next) {
     try {
       const schema = Joi.object().keys({
-        password = Joi.string().required()
+        password: Joi.string().required()
       })
       
       const validate = schema.validate(req.body)
