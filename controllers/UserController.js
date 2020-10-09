@@ -23,6 +23,7 @@ module.exports = class UserController {
         firstName: Joi.string().optional(),
         lastName: Joi.string().optional(),
         email: Joi.string().optional(),
+        gender: Joi.string().optional().valid('male', 'female'),
         birthYear: Joi.number().optional(),
       })
 
