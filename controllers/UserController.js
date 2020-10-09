@@ -88,7 +88,9 @@ module.exports = class UserController {
       const validate = schema.validate(req.body)
       if (validate.error) return res.status(422).json({message: validate.error.message, status: false})
 
-      const user = await User.findByPk(req.user.id)
+      const user = await User.findByPk(req.user.id, {
+        attributes: ['id', 'email', 'password']
+      })
 
       const compared = await bcrypt.compareSync(req.body.oldPassword, user.password)
       if (!compared) return res.status(404).json({message: 'Password error! Please try again'})
@@ -97,6 +99,7 @@ module.exports = class UserController {
         await user.update({
           password: req.body.newPassword
         })
+        delete user.dataValues.password
       } catch (error) {
         throw new Error('PATCH ERROR')
       }
