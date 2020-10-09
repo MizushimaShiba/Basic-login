@@ -19,4 +19,4 @@ app.use(function (error, req, res, next) {
 })
 
 
-app.listen(port, _ => console.log(`Servermu harga Rp.${port} bang`))
+app.listen(port, _ => console.log(`Server online on port ${port}`))
