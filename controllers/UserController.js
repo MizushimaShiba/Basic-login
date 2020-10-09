@@ -81,7 +81,8 @@ module.exports = class UserController {
   static async password(req, res, next) {
     try {
       const schema = Joi.object().keys({
-        password: Joi.string().required()
+        oldPassword: Joi.string().required(),
+        newPassword: Joi.string().required()
       })
       
       const validate = schema.validate(req.body)
@@ -89,11 +90,13 @@ module.exports = class UserController {
 
       const user = await User.findByPk(req.user.id)
 
-      const compared = await bcrypt.compareSync(req.body.password, user.password)
+      const compared = await bcrypt.compareSync(req.body.oldPassword, user.password)
       if (!compared) return res.status(404).json({message: 'Password error! Please try again'})
 
       try {
-        await user.update(req.body)
+        await user.update({
+          password: req.body.newPassword
+        })
       } catch (error) {
         throw new Error('PATCH ERROR')
       }
