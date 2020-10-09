@@ -95,6 +95,9 @@ module.exports = class UserController {
       const compared = await bcrypt.compareSync(req.body.oldPassword, user.password)
       if (!compared) return res.status(404).json({message: 'Password error! Please try again'})
 
+      const salt = await bcrypt.genSalt(10)
+      req.body.newPassword = await bcrypt.hash(req.body.newPassword, salt);
+
       try {
         await user.update({
           password: req.body.newPassword
